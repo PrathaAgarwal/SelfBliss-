@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     console.log('buttons not found');
   }
   function showCat(cid){
-    fetch(`http://localhost:3000/products/${cid}`)
+    fetch(`/products/${cid}`)
     .then(response =>{
       console.log("res", response);
       if (!response.ok) {
