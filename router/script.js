@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     .then(data =>{
       console.log(data);
       localStorage.setItem('cat', JSON.stringify(data));
-      window.location.href = "/categories";
+      window.location.href = "./views/categories.html";
      
   })
 }});
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const data=await response.json();
           if (response.ok && data.success) {
             alert(data.message);
-            window.location.href = "/wishlist";
+            window.location.href = "./views/wishlist.html";
       } else {
         alert(data.message || "Failed to add product");
       }
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data=await response.json();
             if (response.ok && data.success) {
               alert(data.message);
-              window.location.href = "/cart";
+              window.location.href = "./views/cart.html";
         } else {
           alert(data.message || "Failed to add product");
         }
