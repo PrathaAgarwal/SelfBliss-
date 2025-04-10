@@ -9,13 +9,14 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "selfbliss-e4cad", // Your project ID
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  databaseURL: "https://selfbliss-e4cad-default-rtdb.firebaseio.com/" //Your Database URL
+  apiKey: "AIzaSyAJ-bCi9eTF16lOwBJZZDXPiu4D9MD31uo",
+  authDomain: "selfbliss-e4cad.firebaseapp.com",
+  databaseURL: "https://selfbliss-e4cad-default-rtdb.firebaseio.com",
+  projectId: "selfbliss-e4cad",
+  storageBucket: "selfbliss-e4cad.firebasestorage.app",
+  messagingSenderId: "997141981475",
+  appId: "1:997141981475:web:ff4bef09c3f77c0cfa8496",
+  measurementId: "G-M8V2MZ6ZRQ"
 };
 
 // Initialize Firebase
@@ -113,7 +114,6 @@ app.get('/products/:category', async(req, res) =>{
       res.json(p.cid);
     }
   })
-    
 });
 
 app.delete('/wishlist/:product_id', async (req, res) => {
