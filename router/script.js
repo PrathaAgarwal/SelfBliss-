@@ -36,28 +36,13 @@ document.addEventListener('DOMContentLoaded', () =>{
       b.addEventListener('click', (e) =>{
         console.log("e", e);
         const cid=e.target.dataset.id;
-        showCat(cid);
+       
       });
     });
   }else{
     console.log('buttons not found');
   }
-  function showCat(cid){
-    fetch(`http://localhost:3000/products/${cid}`)
-    .then(response =>{
-      console.log("res", response);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data =>{
-      console.log(data);
-      localStorage.setItem('cat', JSON.stringify(data));
-      window.location.href = "/categories";
-     
-  })
-}});
+})
 
 document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.add-to-wishlist');

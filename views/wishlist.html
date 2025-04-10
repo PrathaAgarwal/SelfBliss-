@@ -99,19 +99,8 @@
       }
     });
     async function removeProduct(productId) {
-  try {
-    const response = await fetch(`http://localhost:3000/wishlist/${productId}`, { method: 'DELETE' });
-
-    const data = await response.json();
-console.log(data);
-    if (response.ok && data.success) {
-      alert(data.message);
-      // Remove the item from the page
-      document.querySelector(`[data-product-id="${productId}"]`).closest('.wishlist-item').remove();
-    } else {
-      alert(data.message || "Failed to remove product");
-    }
-  } catch (error) {
+  try {}
+    catch (error) {
     alert("An error occurred while removing the product");
   }
 }

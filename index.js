@@ -27,7 +27,6 @@ const database = getDatabase(a);
 const allproducts= ref(database, 'products');
 
 const app = express();
-const port = 3000;
 app.use(express.static("assets"));
 app.use(express.static("router"));
 app.use(bodyParser.json());
@@ -307,8 +306,4 @@ passport.serializeUser((user, cb) =>{
 });
 passport.deserializeUser((user, cb)=>{
   cb(null, user);
-});
-
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
 });
