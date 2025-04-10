@@ -6,7 +6,7 @@ import session from "express-session";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, get } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
@@ -15,40 +15,18 @@ const firebaseConfig = {
   storageBucket: "YOUR_STORAGE_BUCKET",
   messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
   appId: "YOUR_APP_ID",
-  databaseURL: "https://selfbliss-e4cad.firebaseio.com" //Your Database URL
+  databaseURL: "https://selfbliss-e4cad-default-rtdb.firebaseio.com/" //Your Database URL
 };
 
 // Initialize Firebase
 const a = initializeApp(firebaseConfig);
-
+console.log("Connected to Firebase Realtime Database!");
 // Get a reference to the database service
 const database = getDatabase(a);
-
-// Now you can use the 'database' object to interact with your database.
-console.log("Connected to Firebase Realtime Database!");
-
-//Example:  Write data
-// const dbRef = ref(database, 'users/Alice');
-// set(dbRef, {name: 'Alice', age: 20})
-//   .then(() => {
-//     console.log("Data written successfully!");
-//   })
-//   .catch((error) => {
-//     console.error("Error writing data:", error);
-//   });
-
-
+const allproducts= ref(database, 'products');
 
 const app = express();
 const port = 3000;
-const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "Ecommerce",
-  password: "root",
-  port: 5432,
-});
-db.connect();
 app.use(express.static("assets"));
 app.use(express.static("router"));
 app.use(bodyParser.json());
@@ -127,13 +105,15 @@ app.get('/allcart', async (req, res) => {
 app.get('/products/:category', async(req, res) =>{
   const c = req.params;
   const cid=c.category;
-  try{
-    const result =await db.query('select * from product where category = $1', [cid]);
-    console.log(result.rows);
-    res.json(result.rows);
-  }catch(err){
-    res.status(500).json({error: err.message});
-  }
+  get(allproducts).then ((snapshot) =>{
+    if(snapshot.exists()){
+      const p= snapshot.val();
+      console.log(p);
+      console.log(p.cid);
+      res.json(p.cid);
+    }
+  })
+    
 });
 
 app.delete('/wishlist/:product_id', async (req, res) => {
