@@ -308,3 +308,6 @@ passport.serializeUser((user, cb) =>{
 passport.deserializeUser((user, cb)=>{
   cb(null, user);
 });
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});
