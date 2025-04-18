@@ -7,7 +7,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get } from "firebase/database";
-
+console.log("index.js loaded ✅");
 const firebaseConfig = {
 
   authDomain: "selfbliss-e4cad.firebaseapp.com",
