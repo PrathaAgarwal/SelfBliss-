@@ -102,19 +102,37 @@ app.get('/allcart', async (req, res) => {
   }
 });
 
-app.get('/products/:category', async(req, res) =>{
-  const c = req.params;
-  const cid=c.category;
-  console.log("button clicked", cid);
-  get(allproducts).then ((snapshot) =>{
-    if(snapshot.exists()){
-      const p= snapshot.val();
-      console.log(p);
-      console.log(p.cid);
-      res.json(p.cid);
-    }
-  })
+document.addEventListener('DOMContentLoaded', () => {
+  const categoryButtons = document.querySelectorAll('.categories');
+
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', async function () {
+      console.log("button clicked");
+      const categoryId = this.getAttribute('data-id');
+console.log("cate id", categoryId);
+      try {
+        const dbRef = ref(db);
+        const snapshot = await get(child(dbRef, `products/category${categoryId}`));
+
+        if (snapshot.exists()) {
+          const categoryProducts = snapshot.val();
+console.log(categoryProducts, "category products");
+          // Store in localStorage
+          localStorage.setItem("cat", JSON.stringify(categoryProducts));
+
+          // Redirect to category page
+          window.location.href = "./views/categories.html";
+        } else {
+          console.log("No data available for this category");
+        }
+
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    });
+  });
 });
+
 
 app.delete('/wishlist/:product_id', async (req, res) => {
   const pid = parseInt(req.params.product_id);
